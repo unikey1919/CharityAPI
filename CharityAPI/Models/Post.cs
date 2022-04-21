@@ -6,7 +6,7 @@
         public string uid { get; set; }
         public string postcontent { get; set; }
         public string picture { get; set; }
-        public int like { get; set; }
+        public int likecount { get; set; }
         public string createdate { get; set; }
     }
 }

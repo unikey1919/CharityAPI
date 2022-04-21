@@ -23,6 +23,41 @@ namespace CharityAPI.Repository
             
             return listPost;
         }
-        
+        public void CreatePost(Post post)
+        {
+            try
+            {
+                PostDAO postDAO = new PostDAO();
+                postDAO.CreatePost(post);
+            }
+            catch (Exception objEx)
+            {
+                throw new Exception("Lỗi lấy danh sách bài viết!.  [ PostAPIRepository > CreatePost Error: " + objEx.Message + " ]");
+            }
+        }
+        public void DeletePost(Post post)
+        {
+            try
+            {
+                PostDAO postDAO = new PostDAO();
+                postDAO.DeletePost(post);
+            }
+            catch (Exception objEx)
+            {
+                throw new Exception("Lỗi lấy danh sách bài viết!.  [ PostAPIRepository > DeletePost Error: " + objEx.Message + " ]");
+            }
+        }
+        public void UpdatePost(Post post)
+        {
+            try
+            {
+                PostDAO postDAO = new PostDAO();
+                postDAO.UpdatePost(post);
+            }
+            catch (Exception objEx)
+            {
+                throw new Exception("Lỗi lấy danh sách bài viết!.  [ PostAPIRepository > UpdatePost Error: " + objEx.Message + " ]");
+            }
+        }
     }
 }
