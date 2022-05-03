@@ -15,7 +15,7 @@ namespace CharityAPI.DAO
             DataTable dt = new DataTable();
             string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
             MySqlConnection mySql = new MySqlConnection(conn);
-            string query = "select * from user_post";
+            string query = "CALL POST_INFO";
             MySqlCommand com = new MySqlCommand(query);
             com.Connection = mySql;
             mySql.Open();

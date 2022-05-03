@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
@@ -32,11 +32,19 @@ namespace CharityAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CharityAPI", Version = "v1" });
             });
+            services.AddCors();
+            services.AddCors(c => { c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin()); });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // Cấu hình Cors cho API
+            app.UseCors(option => option.WithOrigins(Configuration["ApplicationSettings:Client_URL"].ToString())
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials());
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

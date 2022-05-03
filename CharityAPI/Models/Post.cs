@@ -8,5 +8,8 @@
         public string picture { get; set; }
         public int likecount { get; set; }
         public string createdate { get; set; }
+        public string firstname { get; set; }
+        public string lastname { get; set; }
+        public string avatar { get; set; }
     }
 }
