@@ -28,6 +28,11 @@ namespace CharityAPI
         {
 
             services.AddControllers();
+
+            /*services.AddCors(options => options.AddDefaultPolicy(
+                builder => builder.AllowAnyOrigin()
+                ));*/
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CharityAPI", Version = "v1" });
@@ -47,6 +52,15 @@ namespace CharityAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(builder =>
+            {
+                builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            }
+            );
 
             app.UseAuthorization();
 
