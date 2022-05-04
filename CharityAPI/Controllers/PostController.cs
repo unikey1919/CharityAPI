@@ -19,6 +19,14 @@ namespace CharityAPI.Controllers
             List<Post> listPost = postAPIRepository.GetListPost();
             return listPost;
         }
+        [Route("GetLikeOfPost")]
+        [HttpPost]
+        public LikeInfo GetLikeOfPost(Post post)
+        {
+            PostAPIRepository postAPIRepository = new PostAPIRepository();
+            LikeInfo likeInfo = postAPIRepository.GetLikeOfPost(post);
+            return likeInfo;
+        }
 
         [Route("CreatePost")]
         [HttpPost]
@@ -52,6 +60,22 @@ namespace CharityAPI.Controllers
             {
                 PostAPIRepository postAPIRepository = new PostAPIRepository();
                 postAPIRepository.UpdatePost(post);
+            }
+            catch (Exception objEx)
+            {
+                return new ApiResultMessage { IsError = true, Message = objEx.Message };
+            }
+
+            return new ApiResultMessage { IsError = false, Message = "" };
+        }
+        [Route("PostAction")]
+        [HttpPost]
+        public ApiResultMessage PostAction(UserPostInfo userPostInfo)
+        {
+            try
+            {
+                PostAPIRepository postAPIRepository = new PostAPIRepository();
+                postAPIRepository.PostAction(userPostInfo);
             }
             catch (Exception objEx)
             {

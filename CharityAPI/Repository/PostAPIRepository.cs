@@ -3,6 +3,7 @@ using CharityAPI.Helper;
 using CharityAPI.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CharityAPI.Repository
 {
@@ -23,6 +24,23 @@ namespace CharityAPI.Repository
             
             return listPost;
         }
+        public LikeInfo GetLikeOfPost(Post post)
+        {
+            LikeInfo likeInfo = new LikeInfo();
+            likeInfo.lstUserInfo = new List<UserPostInfo>();
+            try
+            {
+                PostDAO postDAO = new PostDAO();
+                likeInfo.lstUserInfo = postDAO.GetLikeOfPost(post).ToList<UserPostInfo>();
+                likeInfo.likeCount = likeInfo.lstUserInfo.Count();
+            }
+            catch (Exception objEx)
+            {
+                throw new Exception("Lỗi lấy danh sách bài viết!.  [ PostAPIRepository > GetListPost Error: " + objEx.Message + " ]");
+            }
+
+            return likeInfo;
+        }
         public void CreatePost(Post post)
         {
             try
@@ -32,7 +50,7 @@ namespace CharityAPI.Repository
             }
             catch (Exception objEx)
             {
-                throw new Exception("Lỗi lấy danh sách bài viết!.  [ PostAPIRepository > CreatePost Error: " + objEx.Message + " ]");
+                throw new Exception("Lỗi tạo bài viết!.  [ PostAPIRepository > CreatePost Error: " + objEx.Message + " ]");
             }
         }
         public void DeletePost(Post post)
@@ -44,7 +62,7 @@ namespace CharityAPI.Repository
             }
             catch (Exception objEx)
             {
-                throw new Exception("Lỗi lấy danh sách bài viết!.  [ PostAPIRepository > DeletePost Error: " + objEx.Message + " ]");
+                throw new Exception("Lỗi chỉnh sửa bài viết!.  [ PostAPIRepository > DeletePost Error: " + objEx.Message + " ]");
             }
         }
         public void UpdatePost(Post post)
@@ -56,7 +74,19 @@ namespace CharityAPI.Repository
             }
             catch (Exception objEx)
             {
-                throw new Exception("Lỗi lấy danh sách bài viết!.  [ PostAPIRepository > UpdatePost Error: " + objEx.Message + " ]");
+                throw new Exception("Lỗi xóa bài viết!.  [ PostAPIRepository > UpdatePost Error: " + objEx.Message + " ]");
+            }
+        }
+        public void PostAction(UserPostInfo userPostInfo)
+        {
+            try
+            {
+                PostDAO postDAO = new PostDAO();
+                postDAO.PostAction(userPostInfo);
+            }
+            catch (Exception objEx)
+            {
+                throw new Exception("Lỗi thao tác bài viết!.  [ PostAPIRepository > UpdatePost Error: " + objEx.Message + " ]");
             }
         }
     }

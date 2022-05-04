@@ -24,7 +24,21 @@ namespace CharityAPI.DAO
             mySql.Close();
             return dt;
         }
-        
+        public DataTable GetLikeOfPost(Post post)
+        {
+            DataTable dt = new DataTable();
+            string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
+            MySqlConnection mySql = new MySqlConnection(conn);
+            MySqlCommand cmd = new MySqlCommand("LIKE_INFO");
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@p_postid", post.postid);
+            cmd.Connection = mySql;
+            mySql.Open();
+            MySqlDataAdapter dr = new MySqlDataAdapter(cmd);
+            dr.Fill(dt);
+            mySql.Close();
+            return dt;
+        }
         public void CreatePost(Post post)
         {
             try
@@ -88,7 +102,27 @@ namespace CharityAPI.DAO
                 throw new Exception("PostDAO > UpdatePost: " + ex);
             }
         }
-
+        public void PostAction(UserPostInfo userPostInfo)
+        {
+            try
+            {
+                string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
+                MySqlConnection mySql = new MySqlConnection(conn);
+                MySqlCommand cmd = new MySqlCommand("POST_ACTIONS");
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@p_uid", userPostInfo.uid);
+                cmd.Parameters.AddWithValue("@p_postcontent", userPostInfo.postid);
+                cmd.Parameters.AddWithValue("@p_type", userPostInfo.type);
+                cmd.Connection = mySql;
+                mySql.Open();
+                cmd.ExecuteNonQuery();
+                mySql.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("PostDAO > PostAction: " + ex);
+            }
+        }
         public string ConvertTextToUTF8 (string textConvert)
         {
             byte[] bytes = Encoding.Default.GetBytes(textConvert);
