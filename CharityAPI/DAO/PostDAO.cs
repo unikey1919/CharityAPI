@@ -111,7 +111,7 @@ namespace CharityAPI.DAO
                 MySqlCommand cmd = new MySqlCommand("POST_ACTIONS");
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@p_uid", userPostInfo.uid);
-                cmd.Parameters.AddWithValue("@p_postcontent", userPostInfo.postid);
+                cmd.Parameters.AddWithValue("@p_postid", userPostInfo.postid);
                 cmd.Parameters.AddWithValue("@p_type", userPostInfo.type);
                 cmd.Connection = mySql;
                 mySql.Open();
