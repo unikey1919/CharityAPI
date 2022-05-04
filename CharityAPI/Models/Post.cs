@@ -24,5 +24,6 @@ namespace CharityAPI.Models
     {
        public List<UserPostInfo> lstUserInfo { get; set; } 
        public int likeCount { get; set; }
+       public int likeYour { get; set; }
     }
 }

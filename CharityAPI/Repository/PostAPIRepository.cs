@@ -33,6 +33,7 @@ namespace CharityAPI.Repository
                 PostDAO postDAO = new PostDAO();
                 likeInfo.lstUserInfo = postDAO.GetLikeOfPost(post).ToList<UserPostInfo>();
                 likeInfo.likeCount = likeInfo.lstUserInfo.Count();
+                likeInfo.likeYour = likeInfo.lstUserInfo.Where(x=> x.uid == post.uid).Count();
             }
             catch (Exception objEx)
             {
