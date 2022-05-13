@@ -28,6 +28,15 @@ namespace CharityAPI.Controllers
             return likeInfo;
         }
 
+        [Route("GetCommentOfPost/{postid}")]
+        [HttpGet]
+        public IEnumerable<Comment_Post> GetCommentOfPost(int postid)
+        {
+            PostAPIRepository postAPIRepository = new PostAPIRepository();
+            List<Comment_Post> listComment = postAPIRepository.GetListComment(postid);
+            return listComment;
+        }
+
         [Route("CreatePost")]
         [HttpPost]
         public ActionResult CreatePost(Post post)
@@ -36,6 +45,50 @@ namespace CharityAPI.Controllers
             postAPIRepository.CreatePost(post);
             return Ok(post);
         }
+
+        [Route("AddComment")]
+        [HttpPost]
+        public ActionResult AddComment(Comment_Post comment)
+        {
+            PostAPIRepository postAPIRepository = new PostAPIRepository();
+            postAPIRepository.AddComment(comment);
+            return Ok(comment);
+        }
+
+        [Route("EditComment")]
+        [HttpPut]
+        public ApiResultMessage EditComment(Comment_Post comment)
+        {
+            try
+            {
+                PostAPIRepository postAPIRepository = new PostAPIRepository();
+                postAPIRepository.EditComment(comment);
+            }
+            catch (Exception objEx)
+            {
+                return new ApiResultMessage { IsError = true, Message = objEx.Message };
+            }
+
+            return new ApiResultMessage { IsError = false, Message = "" };
+        }
+
+        [Route("DeleteComment/{commentid}")]
+        [HttpDelete]
+        public ApiResultMessage DeleteComment(int commentid)
+        {
+            try
+            {
+                PostAPIRepository postAPIRepository = new PostAPIRepository();
+                postAPIRepository.DeleteComment(commentid);
+            }
+            catch (Exception objEx)
+            {
+                return new ApiResultMessage { IsError = true, Message = objEx.Message };
+            }
+
+            return new ApiResultMessage { IsError = false, Message = "" };
+        }
+
         [Route("DeletePost")]
         [HttpPost]
         public ApiResultMessage DeletePost(Post post)
@@ -52,6 +105,7 @@ namespace CharityAPI.Controllers
 
             return new ApiResultMessage { IsError = false, Message = ""};
         }
+
         [Route("UpdatePost")]
         [HttpPost]
         public ApiResultMessage UpdatePost(Post post)
@@ -68,6 +122,7 @@ namespace CharityAPI.Controllers
 
             return new ApiResultMessage { IsError = false, Message = "" };
         }
+
         [Route("PostAction")]
         [HttpPost]
         public ApiResultMessage PostAction(UserPostInfo userPostInfo)

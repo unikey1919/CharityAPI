@@ -24,6 +24,23 @@ namespace CharityAPI.Repository
             
             return listPost;
         }
+
+        public List<Comment_Post> GetListComment(int postid)
+        {
+            List<Comment_Post> listComment = new List<Comment_Post>();
+            try
+            {
+                PostDAO postDAO = new PostDAO();
+                listComment = postDAO.GetCommentOfPost(postid).ToList<Comment_Post>();
+            }
+            catch (Exception objEx)
+            {
+                throw new Exception("Lỗi lấy danh sách comment!.  [ PostAPIRepository > GetListComment Error: " + objEx.Message + " ]");
+            }
+
+            return listComment;
+        }
+
         public LikeInfo GetLikeOfPost(Post post)
         {
             LikeInfo likeInfo = new LikeInfo();
@@ -54,6 +71,45 @@ namespace CharityAPI.Repository
                 throw new Exception("Lỗi tạo bài viết!.  [ PostAPIRepository > CreatePost Error: " + objEx.Message + " ]");
             }
         }
+
+        public void AddComment(Comment_Post comment)
+        {
+            try
+            {
+                PostDAO postDAO = new PostDAO();
+                postDAO.AddComment(comment);
+            }
+            catch (Exception objEx)
+            {
+                throw new Exception("Lỗi tạo bài viết!.  [ PostAPIRepository > CreatePost Error: " + objEx.Message + " ]");
+            }
+        }
+
+        public void EditComment(Comment_Post comment)
+        {
+            try
+            {
+                PostDAO postDAO = new PostDAO();
+                postDAO.EditComment(comment);
+            }
+            catch (Exception objEx)
+            {
+                throw new Exception("Lỗi xóa bài viết!.  [ PostAPIRepository > EditComment Error: " + objEx.Message + " ]");
+            }
+        }
+
+        public void DeleteComment(int commentid)
+        {
+            try
+            {
+                PostDAO postDAO = new PostDAO();
+                postDAO.DeleteComment(commentid);
+            }
+            catch (Exception objEx)
+            {
+                throw new Exception("Lỗi chỉnh sửa bài viết!.  [ PostAPIRepository > DeleteComment Error: " + objEx.Message + " ]");
+            }
+        }
         public void DeletePost(Post post)
         {
             try
@@ -78,6 +134,7 @@ namespace CharityAPI.Repository
                 throw new Exception("Lỗi xóa bài viết!.  [ PostAPIRepository > UpdatePost Error: " + objEx.Message + " ]");
             }
         }
+
         public void PostAction(UserPostInfo userPostInfo)
         {
             try

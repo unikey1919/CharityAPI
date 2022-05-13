@@ -24,6 +24,23 @@ namespace CharityAPI.DAO
             mySql.Close();
             return dt;
         }
+
+        public DataTable GetCommentOfPost(int postid)
+        {
+            DataTable dt = new DataTable();
+            string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
+            MySqlConnection mySql = new MySqlConnection(conn);
+            MySqlCommand cmd = new MySqlCommand("GET_COMMENT_OF_POST");
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("post_id", postid);
+            cmd.Connection = mySql;
+            mySql.Open();
+            MySqlDataAdapter dr = new MySqlDataAdapter(cmd);
+            dr.Fill(dt);
+            mySql.Close();
+            return dt;
+        }
+
         public DataTable GetLikeOfPost(Post post)
         {
             DataTable dt = new DataTable();
@@ -60,6 +77,70 @@ namespace CharityAPI.DAO
                 throw new Exception("PostDAO > CreatePost: " + ex);
             }
         }
+        public void AddComment(Comment_Post comment)
+        {
+            try
+            {
+                string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
+                MySqlConnection mySql = new MySqlConnection(conn);
+                MySqlCommand cmd = new MySqlCommand("ADD_COMMENT");
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("postid", comment.postid);
+                cmd.Parameters.AddWithValue("commentcontent", comment.commentcontent);
+                cmd.Parameters.AddWithValue("commentpicture", comment.commentpicture);
+                cmd.Parameters.AddWithValue("uid", comment.uid);
+                cmd.Connection = mySql;
+                mySql.Open();
+                cmd.ExecuteNonQuery();
+                mySql.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("PostDAO > AddComment: " + ex);
+            }
+        }
+
+        public void EditComment(Comment_Post comment)
+        {
+            try
+            {
+                string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
+                MySqlConnection mySql = new MySqlConnection(conn);
+                MySqlCommand cmd = new MySqlCommand("COMMENT_EDIT");
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("c_commentid", comment.commentid);
+                cmd.Parameters.AddWithValue("c_commentcontent", comment.commentcontent);
+                cmd.Connection = mySql;
+                mySql.Open();
+                cmd.ExecuteNonQuery();
+                mySql.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("PostDAO > EditComment: " + ex);
+            }
+        }
+
+        public void DeleteComment(int commentid)
+        {
+            try
+            {
+                string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
+                MySqlConnection mySql = new MySqlConnection(conn);
+                MySqlCommand cmd = new MySqlCommand("COMMENT_DELETE");
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("c_commentid", commentid);
+                cmd.Connection = mySql;
+                mySql.Open();
+                cmd.ExecuteNonQuery();
+                mySql.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("PostDAO > DeletePost: " + ex);
+            }
+        }
+
         public void DeletePost(Post post)
         {
             try

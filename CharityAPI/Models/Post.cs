@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace CharityAPI.Models
 {
@@ -25,5 +26,20 @@ namespace CharityAPI.Models
        public List<UserPostInfo> lstUserInfo { get; set; } 
        public int likeCount { get; set; }
        public int likeYour { get; set; }
+    }
+
+    public class Comment_Post
+    {
+        public int commentid { get; set; }
+        public int postid { get; set; }
+        public string commentcontent { get; set; }
+        public DateTime createdate { get; set; }
+        public DateTime updatedate { get; set; }
+        public string commentpicture { get; set; }
+        public int like { get; set; }
+        public string uid { get; set; }
+        public string firstname { get; set; }
+        public string lastname { get; set; }
+        public string avatar { get; set; }
     }
 }
