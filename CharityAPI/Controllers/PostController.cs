@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CharityAPI.Controllers
 {
@@ -18,6 +19,15 @@ namespace CharityAPI.Controllers
             PostAPIRepository postAPIRepository = new PostAPIRepository();
             List<Post> listPost = postAPIRepository.GetListPost();
             return listPost;
+        }
+        [Route("GetPostSelf")]
+        [HttpPost]
+        public IEnumerable<Post> GetPostSelf(UserPostInfo user)
+        {
+            PostAPIRepository postAPIRepository = new PostAPIRepository();
+            List<Post> listPost = postAPIRepository.GetListPost();
+            var listPostSelf = listPost.Where(x => x.uid == user.uid).OrderByDescending(time => time.createdate).ToList();
+            return listPostSelf;
         }
         [Route("GetLikeOfPost")]
         [HttpPost]
