@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace CharityAPI.Controllers
 {
@@ -32,11 +33,12 @@ namespace CharityAPI.Controllers
 
         [Route("GetUserProFile")]
         [HttpPost]
-        public IEnumerable<User> GetUserProFile(User user)
+        public User GetUserProFile(User user)
         {
 
             List<User> lst = userAPIRepository.GetUserProFile(user.uid);
-            return lst;
+            var userdetail = lst.FirstOrDefault();
+            return userdetail;
         }
 
         [HttpPut]
