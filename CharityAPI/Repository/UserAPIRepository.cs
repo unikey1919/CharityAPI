@@ -1,4 +1,5 @@
 ﻿using CharityAPI.DAO;
+using CharityAPI.Helper;
 using CharityAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,18 @@ namespace CharityAPI.Repository
                 throw new Exception("Elearning > GetStudentId Error: " + ex.Message);
             }
         }
-
+        public List<User> GetUserProFile(string userid)
+        {
+            try
+            {
+                List<User> lst = userDAO.GetUserByUserID(userid).ToList<User>(); ;
+                return lst;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Elearning > GetStudentId Error: " + ex.Message);
+            }
+        }
         public void EditUser(User user)
         {
             try

@@ -30,6 +30,15 @@ namespace CharityAPI.Controllers
             }
         }
 
+        [Route("GetUserProFile")]
+        [HttpPost]
+        public IEnumerable<User> GetUserProFile(User user)
+        {
+
+            List<User> lst = userAPIRepository.GetUserProFile(user.uid);
+            return lst;
+        }
+
         [HttpPut]
         [Route("EditUser")]
         public ApiResultMessage EditUser(User user)
