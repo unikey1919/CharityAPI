@@ -13,11 +13,11 @@ namespace CharityAPI.Controllers
     public class PostController : ControllerBase
     {
         [Route("GetPost")]
-        [HttpGet]
-        public IEnumerable<Post> GetPostFromUser()
+        [HttpPost]
+        public IEnumerable<Post> GetPostFromUser(UserPostInfo user)
         {
             PostAPIRepository postAPIRepository = new PostAPIRepository();
-            List<Post> listPost = postAPIRepository.GetListPost().OrderByDescending(time => time.createdate).ToList(); ;
+            List<Post> listPost = postAPIRepository.GetListPost(user).OrderByDescending(time => time.createdate).ToList(); ;
             return listPost;
         }
         [Route("GetPostSelf")]
@@ -25,7 +25,7 @@ namespace CharityAPI.Controllers
         public IEnumerable<Post> GetPostSelf(UserPostInfo user)
         {
             PostAPIRepository postAPIRepository = new PostAPIRepository();
-            List<Post> listPost = postAPIRepository.GetListPost();
+            List<Post> listPost = postAPIRepository.GetListPost(user);
             var listPostSelf = listPost.Where(x => x.uid == user.uid).OrderByDescending(time => time.createdate).ToList();
             return listPostSelf;
         }

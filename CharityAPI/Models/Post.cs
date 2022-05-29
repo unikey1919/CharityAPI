@@ -20,6 +20,8 @@ namespace CharityAPI.Models
         public int postid { get; set; }
         public string uid { get; set; }
         public int type { get; set; }
+        public int pageIndex { get; set; }
+        public int pageSize { get; set; }
     }
     public class LikeInfo
     {

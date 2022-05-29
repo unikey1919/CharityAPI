@@ -10,16 +10,18 @@ namespace CharityAPI.DAO
 {
     public class PostDAO
     {
-        public DataTable GetPostFromUser() 
+        public DataTable GetPostFromUser(UserPostInfo user) 
         {
             DataTable dt = new DataTable();
             string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
             MySqlConnection mySql = new MySqlConnection(conn);
-            string query = "CALL POST_INFO";
-            MySqlCommand com = new MySqlCommand(query);
-            com.Connection = mySql;
+            MySqlCommand cmd = new MySqlCommand("POST_INFO");
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("I_CURRENTPAGE", user.pageIndex);
+            cmd.Parameters.AddWithValue("I_PAGESIZE", user.pageSize);
+            cmd.Connection = mySql;
             mySql.Open();
-            MySqlDataAdapter dr = new MySqlDataAdapter(com);
+            MySqlDataAdapter dr = new MySqlDataAdapter(cmd);
             dr.Fill(dt);
             mySql.Close();
             return dt;

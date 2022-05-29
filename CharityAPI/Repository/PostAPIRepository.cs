@@ -9,13 +9,13 @@ namespace CharityAPI.Repository
 {
     public class PostAPIRepository
     {
-        public List<Post> GetListPost()
+        public List<Post> GetListPost(UserPostInfo user)
         {
             List<Post> listPost = new List<Post>();
             try
             {
                 PostDAO postDAO = new PostDAO();
-                listPost = postDAO.GetPostFromUser().ToList<Post>();
+                listPost = postDAO.GetPostFromUser(user).ToList<Post>();
             }
             catch(Exception objEx)
             {
