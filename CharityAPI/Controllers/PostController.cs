@@ -20,6 +20,14 @@ namespace CharityAPI.Controllers
             List<Post> listPost = postAPIRepository.GetListPost(user).OrderByDescending(time => time.createdate).ToList(); ;
             return listPost;
         }
+        [Route("GetPostAuction")]
+        [HttpPost]
+        public IEnumerable<Post> GetPostAuction(UserPostInfo user)
+        {
+            PostAPIRepository postAPIRepository = new PostAPIRepository();
+            List<Post> listPost = postAPIRepository.GetPostAuction(user).OrderByDescending(time => time.createdate).ToList(); ;
+            return listPost;
+        }
         [Route("GetPostSelf")]
         [HttpPost]
         public IEnumerable<Post> GetPostSelf(UserPostInfo user)
