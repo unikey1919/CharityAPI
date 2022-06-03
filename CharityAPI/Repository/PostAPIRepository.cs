@@ -55,7 +55,6 @@ namespace CharityAPI.Repository
 
             return listComment;
         }
-
         public LikeInfo GetLikeOfPost(Post post)
         {
             LikeInfo likeInfo = new LikeInfo();
@@ -71,8 +70,24 @@ namespace CharityAPI.Repository
             {
                 throw new Exception("Lỗi lấy danh sách bài viết!.  [ PostAPIRepository > GetListPost Error: " + objEx.Message + " ]");
             }
-
             return likeInfo;
+        }
+        public AuctionInfo GetAuctionOfPost(Post post)
+        {
+            AuctionInfo auctionInfo = new AuctionInfo();
+            auctionInfo.lstUserInfo = new List<UserPostInfo>();
+            try
+            {
+                PostDAO postDAO = new PostDAO();
+                auctionInfo.lstUserInfo = postDAO.GetAuctionOfPost(post).ToList<UserPostInfo>();
+                auctionInfo.auctionCount = auctionInfo.lstUserInfo.Count();
+                auctionInfo.auctionYour = auctionInfo.lstUserInfo.Where(x => x.uid == post.uid).Count();
+            }
+            catch (Exception objEx)
+            {
+                throw new Exception("Lỗi lấy danh sách bài viết!.  [ PostAPIRepository > GetListPost Error: " + objEx.Message + " ]");
+            }
+            return auctionInfo;
         }
         public void CreatePost(Post post)
         {
@@ -149,13 +164,36 @@ namespace CharityAPI.Repository
                 throw new Exception("Lỗi xóa bài viết!.  [ PostAPIRepository > UpdatePost Error: " + objEx.Message + " ]");
             }
         }
-
+        public void UpdatePostStatusAuction(Post post)
+        {
+            try
+            {
+                PostDAO postDAO = new PostDAO();
+                postDAO.UpdatePostStatusAuction(post);
+            }
+            catch (Exception objEx)
+            {
+                throw new Exception("Lỗi xóa bài viết!.  [ PostAPIRepository > UpdatePost Error: " + objEx.Message + " ]");
+            }
+        }
         public void PostAction(UserPostInfo userPostInfo)
         {
             try
             {
                 PostDAO postDAO = new PostDAO();
                 postDAO.PostAction(userPostInfo);
+            }
+            catch (Exception objEx)
+            {
+                throw new Exception("Lỗi thao tác bài viết!.  [ PostAPIRepository > UpdatePost Error: " + objEx.Message + " ]");
+            }
+        }
+        public void PostActionAuction(UserPostInfo userPostInfo)
+        {
+            try
+            {
+                PostDAO postDAO = new PostDAO();
+                postDAO.PostActionAuction(userPostInfo);
             }
             catch (Exception objEx)
             {

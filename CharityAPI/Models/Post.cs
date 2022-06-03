@@ -14,6 +14,7 @@ namespace CharityAPI.Models
         public string firstname { get; set; }
         public string lastname { get; set; }
         public string avatar { get; set; }
+        public int status { get; set; }
     }
     public class UserPostInfo
     {
@@ -29,6 +30,12 @@ namespace CharityAPI.Models
        public int likeCount { get; set; }
        public int likeYour { get; set; }
     }
+    public class AuctionInfo
+    {
+        public List<UserPostInfo> lstUserInfo { get; set; }
+        public int auctionCount { get; set; }
+        public int auctionYour { get; set; }
+    }
 
     public class Comment_Post
     {
@@ -43,5 +50,6 @@ namespace CharityAPI.Models
         public string firstname { get; set; }
         public string lastname { get; set; }
         public string avatar { get; set; }
+
     }
 }

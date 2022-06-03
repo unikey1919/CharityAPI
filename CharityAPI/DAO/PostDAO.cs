@@ -75,6 +75,21 @@ namespace CharityAPI.DAO
             mySql.Close();
             return dt;
         }
+        public DataTable GetAuctionOfPost(Post post)
+        {
+            DataTable dt = new DataTable();
+            string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
+            MySqlConnection mySql = new MySqlConnection(conn);
+            MySqlCommand cmd = new MySqlCommand("AUCTION_INFO");
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@p_postid", post.postid);
+            cmd.Connection = mySql;
+            mySql.Open();
+            MySqlDataAdapter dr = new MySqlDataAdapter(cmd);
+            dr.Fill(dt);
+            mySql.Close();
+            return dt;
+        }
         public void CreatePost(Post post)
         {
             try
@@ -191,6 +206,27 @@ namespace CharityAPI.DAO
                 cmd.Parameters.AddWithValue("@i_postcontent", post.postcontent);
                 cmd.Parameters.AddWithValue("@i_picture", post.picture);
                 cmd.Parameters.AddWithValue("@i_likecount", post.likecount);
+                cmd.Parameters.AddWithValue("@i_status", post.status);
+                cmd.Connection = mySql;
+                mySql.Open();
+                cmd.ExecuteNonQuery();
+                mySql.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("PostDAO > UpdatePost: " + ex);
+            }
+        }
+        public void UpdatePostStatusAuction(Post post)
+        {
+            try
+            {
+                string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
+                MySqlConnection mySql = new MySqlConnection(conn);
+                MySqlCommand cmd = new MySqlCommand("POST_UPDSTATUS");
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@i_postid", post.postid);
+                cmd.Parameters.AddWithValue("@i_status", post.status);
                 cmd.Connection = mySql;
                 mySql.Open();
                 cmd.ExecuteNonQuery();
@@ -208,6 +244,27 @@ namespace CharityAPI.DAO
                 string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
                 MySqlConnection mySql = new MySqlConnection(conn);
                 MySqlCommand cmd = new MySqlCommand("POST_ACTIONS");
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@p_uid", userPostInfo.uid);
+                cmd.Parameters.AddWithValue("@p_postid", userPostInfo.postid);
+                cmd.Parameters.AddWithValue("@p_type", userPostInfo.type);
+                cmd.Connection = mySql;
+                mySql.Open();
+                cmd.ExecuteNonQuery();
+                mySql.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("PostDAO > PostAction: " + ex);
+            }
+        }
+        public void PostActionAuction(UserPostInfo userPostInfo)
+        {
+            try
+            {
+                string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
+                MySqlConnection mySql = new MySqlConnection(conn);
+                MySqlCommand cmd = new MySqlCommand("POSTAUCTION_ACTIONS");
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@p_uid", userPostInfo.uid);
                 cmd.Parameters.AddWithValue("@p_postid", userPostInfo.postid);

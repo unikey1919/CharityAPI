@@ -45,7 +45,14 @@ namespace CharityAPI.Controllers
             LikeInfo likeInfo = postAPIRepository.GetLikeOfPost(post);
             return likeInfo;
         }
-
+        [Route("GetAuctionOfPost")]
+        [HttpPost]
+        public AuctionInfo GetAuctionOfPost(Post post)
+        {
+            PostAPIRepository postAPIRepository = new PostAPIRepository();
+            AuctionInfo auctionInfo = postAPIRepository.GetAuctionOfPost(post);
+            return auctionInfo;
+        }
         [Route("GetCommentOfPost/{postid}")]
         [HttpGet]
         public IEnumerable<Comment_Post> GetCommentOfPost(int postid)
@@ -141,6 +148,23 @@ namespace CharityAPI.Controllers
             return new ApiResultMessage { IsError = false, Message = "" };
         }
 
+        [Route("UpdatePostStatusAuction")]
+        [HttpPost]
+        public ApiResultMessage UpdatePostStatusAuction(Post post)
+        {
+            try
+            {
+                PostAPIRepository postAPIRepository = new PostAPIRepository();
+                postAPIRepository.UpdatePostStatusAuction(post);
+            }
+            catch (Exception objEx)
+            {
+                return new ApiResultMessage { IsError = true, Message = objEx.Message };
+            }
+
+            return new ApiResultMessage { IsError = false, Message = "" };
+        }
+
         [Route("PostAction")]
         [HttpPost]
         public ApiResultMessage PostAction(UserPostInfo userPostInfo)
@@ -149,6 +173,22 @@ namespace CharityAPI.Controllers
             {
                 PostAPIRepository postAPIRepository = new PostAPIRepository();
                 postAPIRepository.PostAction(userPostInfo);
+            }
+            catch (Exception objEx)
+            {
+                return new ApiResultMessage { IsError = true, Message = objEx.Message };
+            }
+
+            return new ApiResultMessage { IsError = false, Message = "" };
+        }
+        [Route("PostActionAuction")]
+        [HttpPost]
+        public ApiResultMessage PostActionAuction(UserPostInfo userPostInfo)
+        {
+            try
+            {
+                PostAPIRepository postAPIRepository = new PostAPIRepository();
+                postAPIRepository.PostActionAuction(userPostInfo);
             }
             catch (Exception objEx)
             {
