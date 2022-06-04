@@ -26,6 +26,23 @@ namespace CharityAPI.DAO
             mySql.Close();
             return dt;
         }
+        public DataTable GetPostAutionRequest(UserPostInfo user)
+        {
+            DataTable dt = new DataTable();
+            string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
+            MySqlConnection mySql = new MySqlConnection(conn);
+            MySqlCommand cmd = new MySqlCommand("POSTAUTIONREQUEST_INFO");
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("I_UID", user.uid);
+            cmd.Parameters.AddWithValue("I_CURRENTPAGE", user.pageIndex);
+            cmd.Parameters.AddWithValue("I_PAGESIZE", user.pageSize);
+            cmd.Connection = mySql;
+            mySql.Open();
+            MySqlDataAdapter dr = new MySqlDataAdapter(cmd);
+            dr.Fill(dt);
+            mySql.Close();
+            return dt;
+        }
         public DataTable GetPostAuction(UserPostInfo user)
         {
             DataTable dt = new DataTable();
