@@ -23,6 +23,7 @@ namespace CharityAPI.Models
         public int type { get; set; }
         public int pageIndex { get; set; }
         public int pageSize { get; set; }
+        public int status { get; set; }
     }
     public class LikeInfo
     {

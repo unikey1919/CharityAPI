@@ -45,6 +45,15 @@ namespace CharityAPI.Controllers
             LikeInfo likeInfo = postAPIRepository.GetLikeOfPost(post);
             return likeInfo;
         }
+        [Route("GetPostAutionRequest")]
+        [HttpPost]
+        public IEnumerable<Post> GetPostAutionRequest(UserPostInfo user)
+        {
+            PostAPIRepository postAPIRepository = new PostAPIRepository();
+            List<Post> listPost = postAPIRepository.GetPostAutionRequest(user);
+            var listPostSelf = listPost.Where(x => x.uid == user.uid).OrderByDescending(time => time.createdate).ToList();
+            return listPostSelf;
+        }
         [Route("GetAuctionOfPost")]
         [HttpPost]
         public AuctionInfo GetAuctionOfPost(Post post)

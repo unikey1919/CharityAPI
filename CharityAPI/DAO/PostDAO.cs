@@ -53,6 +53,7 @@ namespace CharityAPI.DAO
             cmd.Parameters.AddWithValue("I_UID", user.uid);
             cmd.Parameters.AddWithValue("I_CURRENTPAGE", user.pageIndex);
             cmd.Parameters.AddWithValue("I_PAGESIZE", user.pageSize);
+            cmd.Parameters.AddWithValue("I_STATUS", user.status);
             cmd.Connection = mySql;
             mySql.Open();
             MySqlDataAdapter dr = new MySqlDataAdapter(cmd);
