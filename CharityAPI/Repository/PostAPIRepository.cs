@@ -54,6 +54,21 @@ namespace CharityAPI.Repository
 
             return listPost;
         }
+        public List<Post> GetPostAuctioning(UserPostInfo user)
+        {
+            List<Post> listPost = new List<Post>();
+            try
+            {
+                PostDAO postDAO = new PostDAO();
+                listPost = postDAO.GetPostAuctioning(user).ToList<Post>();
+            }
+            catch (Exception objEx)
+            {
+                throw new Exception("Lỗi lấy danh sách bài viết!.  [ PostAPIRepository > GetListPost Error: " + objEx.Message + " ]");
+            }
+
+            return listPost;
+        }
 
         public List<Comment_Post> GetListComment(int postid)
         {
@@ -173,6 +188,18 @@ namespace CharityAPI.Repository
             {
                 PostDAO postDAO = new PostDAO();
                 postDAO.UpdatePost(post);
+            }
+            catch (Exception objEx)
+            {
+                throw new Exception("Lỗi xóa bài viết!.  [ PostAPIRepository > UpdatePost Error: " + objEx.Message + " ]");
+            }
+        }
+        public void UpdatePostEndBid(Post post)
+        {
+            try
+            {
+                PostDAO postDAO = new PostDAO();
+                postDAO.UpdatePostEndBid(post);
             }
             catch (Exception objEx)
             {

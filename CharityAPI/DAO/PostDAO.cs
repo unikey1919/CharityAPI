@@ -61,6 +61,23 @@ namespace CharityAPI.DAO
             mySql.Close();
             return dt;
         }
+        public DataTable GetPostAuctioning(UserPostInfo user)
+        {
+            DataTable dt = new DataTable();
+            string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
+            MySqlConnection mySql = new MySqlConnection(conn);
+            MySqlCommand cmd = new MySqlCommand("POSTAUCTIONING_INFO");
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("I_UID", user.uid);
+            cmd.Parameters.AddWithValue("I_CURRENTPAGE", user.pageIndex);
+            cmd.Parameters.AddWithValue("I_PAGESIZE", user.pageSize);
+            cmd.Connection = mySql;
+            mySql.Open();
+            MySqlDataAdapter dr = new MySqlDataAdapter(cmd);
+            dr.Fill(dt);
+            mySql.Close();
+            return dt;
+        }
 
         public DataTable GetCommentOfPost(int postid)
         {
@@ -225,6 +242,26 @@ namespace CharityAPI.DAO
                 cmd.Parameters.AddWithValue("@i_picture", post.picture);
                 cmd.Parameters.AddWithValue("@i_likecount", post.likecount);
                 cmd.Parameters.AddWithValue("@i_status", post.status);
+                cmd.Connection = mySql;
+                mySql.Open();
+                cmd.ExecuteNonQuery();
+                mySql.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("PostDAO > UpdatePost: " + ex);
+            }
+        }
+        public void UpdatePostEndBid(Post post)
+        {
+            try
+            {
+                string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
+                MySqlConnection mySql = new MySqlConnection(conn);
+                MySqlCommand cmd = new MySqlCommand("POST_UPDENDBID");
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@i_postid", post.postid);
+                cmd.Parameters.AddWithValue("@i_uid", post.uid);
                 cmd.Connection = mySql;
                 mySql.Open();
                 cmd.ExecuteNonQuery();

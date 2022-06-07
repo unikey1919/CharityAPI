@@ -28,6 +28,14 @@ namespace CharityAPI.Controllers
             List<Post> listPost = postAPIRepository.GetPostAuction(user).OrderByDescending(time => time.createdate).ToList(); ;
             return listPost;
         }
+        [Route("GetPostAuctioning")]
+        [HttpPost]
+        public IEnumerable<Post> GetPostAuctioning(UserPostInfo user)
+        {
+            PostAPIRepository postAPIRepository = new PostAPIRepository();
+            List<Post> listPost = postAPIRepository.GetPostAuctioning(user).OrderByDescending(time => time.createdate).ToList(); ;
+            return listPost;
+        }
         [Route("GetPostSelf")]
         [HttpPost]
         public IEnumerable<Post> GetPostSelf(UserPostInfo user)
@@ -156,7 +164,22 @@ namespace CharityAPI.Controllers
 
             return new ApiResultMessage { IsError = false, Message = "" };
         }
+        [Route("UpdatePostEndBid")]
+        [HttpPost]
+        public ApiResultMessage UpdatePostEndBid(Post post)
+        {
+            try
+            {
+                PostAPIRepository postAPIRepository = new PostAPIRepository();
+                postAPIRepository.UpdatePostEndBid(post);
+            }
+            catch (Exception objEx)
+            {
+                return new ApiResultMessage { IsError = true, Message = objEx.Message };
+            }
 
+            return new ApiResultMessage { IsError = false, Message = "" };
+        }
         [Route("UpdatePostStatusAuction")]
         [HttpPost]
         public ApiResultMessage UpdatePostStatusAuction(Post post)
