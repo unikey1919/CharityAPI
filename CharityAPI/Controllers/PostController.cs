@@ -36,12 +36,20 @@ namespace CharityAPI.Controllers
             List<Post> listPost = postAPIRepository.GetPostAuctioning(user).OrderByDescending(time => time.createdate).ToList(); ;
             return listPost;
         }
+        [Route("GetSuccessAuction")]
+        [HttpPost]
+        public IEnumerable<Post> GetSuccessAuction(UserPostInfo user)
+        {
+            PostAPIRepository postAPIRepository = new PostAPIRepository();
+            List<Post> listPost = postAPIRepository.GetSuccessAuction(user).OrderByDescending(time => time.createdate).ToList(); ;
+            return listPost;
+        }
         [Route("GetPostSelf")]
         [HttpPost]
         public IEnumerable<Post> GetPostSelf(UserPostInfo user)
         {
             PostAPIRepository postAPIRepository = new PostAPIRepository();
-            List<Post> listPost = postAPIRepository.GetListPost(user);
+            List<Post> listPost = postAPIRepository.GetPostFromSelf(user);
             var listPostSelf = listPost.Where(x => x.uid == user.uid).OrderByDescending(time => time.createdate).ToList();
             return listPostSelf;
         }

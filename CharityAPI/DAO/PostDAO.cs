@@ -26,6 +26,21 @@ namespace CharityAPI.DAO
             mySql.Close();
             return dt;
         }
+        public DataTable GetPostFromSelf(UserPostInfo user)
+        {
+            DataTable dt = new DataTable();
+            string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
+            MySqlConnection mySql = new MySqlConnection(conn);
+            MySqlCommand cmd = new MySqlCommand("POSTSELF_INFO");
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("I_UID", user.uid);
+            cmd.Connection = mySql;
+            mySql.Open();
+            MySqlDataAdapter dr = new MySqlDataAdapter(cmd);
+            dr.Fill(dt);
+            mySql.Close();
+            return dt;
+        }
         public DataTable GetPostAutionRequest(UserPostInfo user)
         {
             DataTable dt = new DataTable();
@@ -67,6 +82,23 @@ namespace CharityAPI.DAO
             string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
             MySqlConnection mySql = new MySqlConnection(conn);
             MySqlCommand cmd = new MySqlCommand("POSTAUCTIONING_INFO");
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("I_UID", user.uid);
+            cmd.Parameters.AddWithValue("I_CURRENTPAGE", user.pageIndex);
+            cmd.Parameters.AddWithValue("I_PAGESIZE", user.pageSize);
+            cmd.Connection = mySql;
+            mySql.Open();
+            MySqlDataAdapter dr = new MySqlDataAdapter(cmd);
+            dr.Fill(dt);
+            mySql.Close();
+            return dt;
+        }
+        public DataTable GetSuccessAuction(UserPostInfo user)
+        {
+            DataTable dt = new DataTable();
+            string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
+            MySqlConnection mySql = new MySqlConnection(conn);
+            MySqlCommand cmd = new MySqlCommand("SUCCESSAUTION_INFO");
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("I_UID", user.uid);
             cmd.Parameters.AddWithValue("I_CURRENTPAGE", user.pageIndex);

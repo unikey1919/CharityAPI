@@ -15,6 +15,7 @@ namespace CharityAPI.Models
         public string lastname { get; set; }
         public string avatar { get; set; }
         public int status { get; set; }
+        public int mobile { get; set; }
     }
     public class UserPostInfo
     {

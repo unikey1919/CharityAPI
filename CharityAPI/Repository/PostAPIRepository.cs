@@ -24,6 +24,21 @@ namespace CharityAPI.Repository
             
             return listPost;
         }
+        public List<Post> GetPostFromSelf(UserPostInfo user)
+        {
+            List<Post> listPost = new List<Post>();
+            try
+            {
+                PostDAO postDAO = new PostDAO();
+                listPost = postDAO.GetPostFromSelf(user).ToList<Post>();
+            }
+            catch (Exception objEx)
+            {
+                throw new Exception("Lỗi lấy danh sách bài viết!.  [ PostAPIRepository > GetListPost Error: " + objEx.Message + " ]");
+            }
+
+            return listPost;
+        }
         public List<Post> GetPostAutionRequest(UserPostInfo user)
         {
             List<Post> listPost = new List<Post>();
@@ -69,7 +84,21 @@ namespace CharityAPI.Repository
 
             return listPost;
         }
+        public List<Post> GetSuccessAuction(UserPostInfo user)
+        {
+            List<Post> listPost = new List<Post>();
+            try
+            {
+                PostDAO postDAO = new PostDAO();
+                listPost = postDAO.GetSuccessAuction(user).ToList<Post>();
+            }
+            catch (Exception objEx)
+            {
+                throw new Exception("Lỗi lấy danh sách bài viết!.  [ PostAPIRepository > GetListPost Error: " + objEx.Message + " ]");
+            }
 
+            return listPost;
+        }
         public List<Comment_Post> GetListComment(int postid)
         {
             List<Comment_Post> listComment = new List<Comment_Post>();
