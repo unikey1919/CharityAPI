@@ -237,5 +237,21 @@ namespace CharityAPI.Controllers
 
             return new ApiResultMessage { IsError = false, Message = "" };
         }
+        [Route("CreateHistoryBid")]
+        [HttpPost]
+        public ApiResultMessage CreateHistoryBid(HistoryBid history)
+        {
+            try
+            {
+                PostAPIRepository postAPIRepository = new PostAPIRepository();
+                postAPIRepository.CreateHistoryBid(history);
+            }
+            catch (Exception objEx)
+            {
+                return new ApiResultMessage { IsError = true, Message = objEx.Message };
+            }
+
+            return new ApiResultMessage { IsError = false, Message = "" };
+        }
     }
 }

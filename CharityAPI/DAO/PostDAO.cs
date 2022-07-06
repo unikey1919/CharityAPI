@@ -366,6 +366,29 @@ namespace CharityAPI.DAO
                 throw new Exception("PostDAO > PostAction: " + ex);
             }
         }
+        public void CreateHistoryBid(HistoryBid history)
+        {
+            try
+            {
+                string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
+                MySqlConnection mySql = new MySqlConnection(conn);
+                MySqlCommand cmd = new MySqlCommand("HISTORYBID_INS");
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@i_userwin", history.userwin);
+                cmd.Parameters.AddWithValue("@i_userold", history.userold);
+                cmd.Parameters.AddWithValue("@i_dateclose", history.dateclose);
+                cmd.Parameters.AddWithValue("@i_postid", history.postid);
+                cmd.Parameters.AddWithValue("@i_topbid", history.topbid);
+                cmd.Connection = mySql;
+                mySql.Open();
+                cmd.ExecuteNonQuery();
+                mySql.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("PostDAO > CreateHistoryBid: " + ex);
+            }
+        }
         public string ConvertTextToUTF8 (string textConvert)
         {
             byte[] bytes = Encoding.Default.GetBytes(textConvert);

@@ -52,6 +52,15 @@ namespace CharityAPI.Models
         public string firstname { get; set; }
         public string lastname { get; set; }
         public string avatar { get; set; }
-
+    }
+    public class HistoryBid
+    {
+        public int historyid { get; set; }
+        public string userwin { get; set; }
+        public string userold { get; set; }
+        public float topbid { get; set; }
+        public DateTime dateclose { get; set; }
+        public int postid { get; set; }
+       
     }
 }

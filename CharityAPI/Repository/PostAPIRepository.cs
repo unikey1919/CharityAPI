@@ -271,5 +271,17 @@ namespace CharityAPI.Repository
                 throw new Exception("Lỗi thao tác bài viết!.  [ PostAPIRepository > UpdatePost Error: " + objEx.Message + " ]");
             }
         }
+        public void CreateHistoryBid(HistoryBid history)
+        {
+            try
+            {
+                PostDAO postDAO = new PostDAO();
+                postDAO.CreateHistoryBid(history);
+            }
+            catch (Exception objEx)
+            {
+                throw new Exception("Lỗi tạo bài viết!.  [ PostAPIRepository > CreateHistoryBid Error: " + objEx.Message + " ]");
+            }
+        }
     }
 }
