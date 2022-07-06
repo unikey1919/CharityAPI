@@ -376,7 +376,6 @@ namespace CharityAPI.DAO
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@i_userwin", history.userwin);
                 cmd.Parameters.AddWithValue("@i_userold", history.userold);
-                cmd.Parameters.AddWithValue("@i_dateclose", history.dateclose);
                 cmd.Parameters.AddWithValue("@i_postid", history.postid);
                 cmd.Parameters.AddWithValue("@i_topbid", history.topbid);
                 cmd.Connection = mySql;

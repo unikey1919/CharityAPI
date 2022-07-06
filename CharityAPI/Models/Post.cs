@@ -16,6 +16,12 @@ namespace CharityAPI.Models
         public string avatar { get; set; }
         public int status { get; set; }
         public int mobile { get; set; }
+        public string userwin { get; set; }
+        public string userold { get; set; }
+        public float topbid { get; set; }
+        public DateTime dateclose { get; set; }
+        public string fullnamewin { get; set; }
+        public string fullnameold { get; set; }
     }
     public class UserPostInfo
     {
