@@ -174,12 +174,13 @@ namespace CharityAPI.Controllers
         }
         [Route("UpdatePostEndBid")]
         [HttpPost]
-        public ApiResultMessage UpdatePostEndBid(Post post)
+        public ApiResultMessage UpdatePostEndBid(HistoryBid history)
         {
             try
             {
                 PostAPIRepository postAPIRepository = new PostAPIRepository();
-                postAPIRepository.UpdatePostEndBid(post);
+                postAPIRepository.CreateHistoryBid(history);
+                postAPIRepository.UpdatePostEndBid(history);           
             }
             catch (Exception objEx)
             {

@@ -223,12 +223,12 @@ namespace CharityAPI.Repository
                 throw new Exception("Lỗi xóa bài viết!.  [ PostAPIRepository > UpdatePost Error: " + objEx.Message + " ]");
             }
         }
-        public void UpdatePostEndBid(Post post)
+        public void UpdatePostEndBid(HistoryBid history)
         {
             try
             {
                 PostDAO postDAO = new PostDAO();
-                postDAO.UpdatePostEndBid(post);
+                postDAO.UpdatePostEndBid(history);
             }
             catch (Exception objEx)
             {

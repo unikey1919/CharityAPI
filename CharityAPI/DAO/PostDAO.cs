@@ -284,7 +284,7 @@ namespace CharityAPI.DAO
                 throw new Exception("PostDAO > UpdatePost: " + ex);
             }
         }
-        public void UpdatePostEndBid(Post post)
+        public void UpdatePostEndBid(HistoryBid history)
         {
             try
             {
@@ -292,8 +292,8 @@ namespace CharityAPI.DAO
                 MySqlConnection mySql = new MySqlConnection(conn);
                 MySqlCommand cmd = new MySqlCommand("POST_UPDENDBID");
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@i_postid", post.postid);
-                cmd.Parameters.AddWithValue("@i_uid", post.uid);
+                cmd.Parameters.AddWithValue("@i_postid", history.postid);
+                cmd.Parameters.AddWithValue("@i_uid", history.userwin);
                 cmd.Connection = mySql;
                 mySql.Open();
                 cmd.ExecuteNonQuery();
@@ -372,7 +372,7 @@ namespace CharityAPI.DAO
             {
                 string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
                 MySqlConnection mySql = new MySqlConnection(conn);
-                MySqlCommand cmd = new MySqlCommand("HISTORYBID_INS");
+                MySqlCommand cmd = new MySqlCommand("HISTORYBID_INSERT");
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@i_userwin", history.userwin);
                 cmd.Parameters.AddWithValue("@i_userold", history.userold);
