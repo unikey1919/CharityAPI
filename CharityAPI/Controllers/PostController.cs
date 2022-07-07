@@ -20,6 +20,14 @@ namespace CharityAPI.Controllers
             List<Post> listPost = postAPIRepository.GetListPost(user).OrderByDescending(time => time.createdate).ToList(); ;
             return listPost;
         }
+        [Route("GetPostMinhChung")]
+        [HttpPost]
+        public IEnumerable<Post> GetPostMinhChung(UserPostInfo user)
+        {
+            PostAPIRepository postAPIRepository = new PostAPIRepository();
+            List<Post> listPost = postAPIRepository.GetListPostMinhChung(user).ToList(); ;
+            return listPost;
+        }
         [Route("GetPostAuction")]
         [HttpPost]
         public IEnumerable<Post> GetPostAuction(UserPostInfo user)
@@ -95,6 +103,14 @@ namespace CharityAPI.Controllers
             postAPIRepository.CreatePost(post);
             return Ok(post);
         }
+        [Route("CreatePostMinhChung")]
+        [HttpPost]
+        public ActionResult CreatePostMinhChung(Post post)
+        {
+            PostAPIRepository postAPIRepository = new PostAPIRepository();
+            postAPIRepository.CreatePostMinhChung(post);
+            return Ok(post);
+        }
 
         [Route("AddComment")]
         [HttpPost]
@@ -164,6 +180,22 @@ namespace CharityAPI.Controllers
             {
                 PostAPIRepository postAPIRepository = new PostAPIRepository();
                 postAPIRepository.UpdatePost(post);
+            }
+            catch (Exception objEx)
+            {
+                return new ApiResultMessage { IsError = true, Message = objEx.Message };
+            }
+
+            return new ApiResultMessage { IsError = false, Message = "" };
+        }
+        [Route("UpdatePostMinhChung")]
+        [HttpPost]
+        public ApiResultMessage UpdatePostMinhChung(Post post)
+        {
+            try
+            {
+                PostAPIRepository postAPIRepository = new PostAPIRepository();
+                postAPIRepository.UpdatePostMinhChung(post);
             }
             catch (Exception objEx)
             {

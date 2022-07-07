@@ -26,6 +26,22 @@ namespace CharityAPI.DAO
             mySql.Close();
             return dt;
         }
+        public DataTable GetPostFromUserMinhChung(UserPostInfo user)
+        {
+            DataTable dt = new DataTable();
+            string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
+            MySqlConnection mySql = new MySqlConnection(conn);
+            MySqlCommand cmd = new MySqlCommand("GET_POSTMC");
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("I_POSTID", user.postid);
+            cmd.Parameters.AddWithValue("I_UID", user.uid);
+            cmd.Connection = mySql;
+            mySql.Open();
+            MySqlDataAdapter dr = new MySqlDataAdapter(cmd);
+            dr.Fill(dt);
+            mySql.Close();
+            return dt;
+        }
         public DataTable GetPostFromSelf(UserPostInfo user)
         {
             DataTable dt = new DataTable();
@@ -178,6 +194,28 @@ namespace CharityAPI.DAO
                 throw new Exception("PostDAO > CreatePost: " + ex);
             }
         }
+        public void CreatePostMinhChung(Post post)
+        {
+            try
+            {
+                string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
+                MySqlConnection mySql = new MySqlConnection(conn);
+                MySqlCommand cmd = new MySqlCommand("POSTMC_INSERT");
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@i_postid", post.uid);
+                cmd.Parameters.AddWithValue("@i_uid", post.uid);
+                cmd.Parameters.AddWithValue("@i_postcontent", post.postcontent);
+                cmd.Parameters.AddWithValue("@i_picture", post.picture);
+                cmd.Connection = mySql;
+                mySql.Open();
+                cmd.ExecuteNonQuery();
+                mySql.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("PostDAO > CreatePost: " + ex);
+            }
+        }
         public void AddComment(Comment_Post comment)
         {
             try
@@ -274,6 +312,27 @@ namespace CharityAPI.DAO
                 cmd.Parameters.AddWithValue("@i_picture", post.picture);
                 cmd.Parameters.AddWithValue("@i_likecount", post.likecount);
                 cmd.Parameters.AddWithValue("@i_status", post.status);
+                cmd.Connection = mySql;
+                mySql.Open();
+                cmd.ExecuteNonQuery();
+                mySql.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("PostDAO > UpdatePost: " + ex);
+            }
+        }
+        public void UpdatePostMinhChung(Post post)
+        {
+            try
+            {
+                string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
+                MySqlConnection mySql = new MySqlConnection(conn);
+                MySqlCommand cmd = new MySqlCommand("POSTMC_UPD");
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@i_mcid", post.mcid);
+                cmd.Parameters.AddWithValue("@i_postcontent", post.postcontent);
+                cmd.Parameters.AddWithValue("@i_picture", post.picture);
                 cmd.Connection = mySql;
                 mySql.Open();
                 cmd.ExecuteNonQuery();

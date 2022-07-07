@@ -22,6 +22,12 @@ namespace CharityAPI.Models
         public DateTime dateclose { get; set; }
         public string fullnamewin { get; set; }
         public string fullnameold { get; set; }
+        public int mcid { get; set; }
+        public int postmcid { get; set; }
+        public string uidmc { get; set; }
+        public string postcontentmc { get; set; }
+        public string picturemc { get; set; }
+
     }
     public class UserPostInfo
     {

@@ -24,6 +24,21 @@ namespace CharityAPI.Repository
             
             return listPost;
         }
+        public List<Post> GetListPostMinhChung(UserPostInfo user)
+        {
+            List<Post> listPost = new List<Post>();
+            try
+            {
+                PostDAO postDAO = new PostDAO();
+                listPost = postDAO.GetPostFromUserMinhChung(user).ToList<Post>();
+            }
+            catch (Exception objEx)
+            {
+                throw new Exception("Lỗi lấy danh sách bài viết!.  [ PostAPIRepository > GetListPost Error: " + objEx.Message + " ]");
+            }
+
+            return listPost;
+        }
         public List<Post> GetPostFromSelf(UserPostInfo user)
         {
             List<Post> listPost = new List<Post>();
@@ -160,7 +175,18 @@ namespace CharityAPI.Repository
                 throw new Exception("Lỗi tạo bài viết!.  [ PostAPIRepository > CreatePost Error: " + objEx.Message + " ]");
             }
         }
-
+        public void CreatePostMinhChung(Post post)
+        {
+            try
+            {
+                PostDAO postDAO = new PostDAO();
+                postDAO.CreatePostMinhChung(post);
+            }
+            catch (Exception objEx)
+            {
+                throw new Exception("Lỗi tạo bài viết!.  [ PostAPIRepository > CreatePostMinhChung Error: " + objEx.Message + " ]");
+            }
+        }
         public void AddComment(Comment_Post comment)
         {
             try
@@ -217,6 +243,18 @@ namespace CharityAPI.Repository
             {
                 PostDAO postDAO = new PostDAO();
                 postDAO.UpdatePost(post);
+            }
+            catch (Exception objEx)
+            {
+                throw new Exception("Lỗi xóa bài viết!.  [ PostAPIRepository > UpdatePost Error: " + objEx.Message + " ]");
+            }
+        }
+        public void UpdatePostMinhChung(Post post)
+        {
+            try
+            {
+                PostDAO postDAO = new PostDAO();
+                postDAO.UpdatePostMinhChung(post);
             }
             catch (Exception objEx)
             {
