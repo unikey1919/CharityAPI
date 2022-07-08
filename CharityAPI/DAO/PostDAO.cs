@@ -202,7 +202,7 @@ namespace CharityAPI.DAO
                 MySqlConnection mySql = new MySqlConnection(conn);
                 MySqlCommand cmd = new MySqlCommand("POSTMC_INSERT");
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@i_postid", post.uid);
+                cmd.Parameters.AddWithValue("@i_postid", post.postid);
                 cmd.Parameters.AddWithValue("@i_uid", post.uid);
                 cmd.Parameters.AddWithValue("@i_postcontent", post.postcontent);
                 cmd.Parameters.AddWithValue("@i_picture", post.picture);
