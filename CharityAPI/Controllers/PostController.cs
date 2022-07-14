@@ -17,7 +17,7 @@ namespace CharityAPI.Controllers
         public IEnumerable<Post> GetPostFromUser(UserPostInfo user)
         {
             PostAPIRepository postAPIRepository = new PostAPIRepository();
-            List<Post> listPost = postAPIRepository.GetListPost(user).OrderByDescending(time => time.createdate).ToList(); ;
+            List<Post> listPost = postAPIRepository.GetListPost(user).ToList(); 
             return listPost;
         }
         [Route("GetPostMinhChung")]
