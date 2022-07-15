@@ -75,4 +75,23 @@ namespace CharityAPI.Models
         public int postid { get; set; }
        
     }
+    public class Donate
+    {
+        public int donateid { get; set; }
+        public float payment { get; set; }
+        public int postid { get; set; }
+        public int status { get; set; }
+        public DateTime createdate { get; set; }
+        public string topdonateuid { get; set; }
+    }
+    public class DonateDetail
+    {
+        public int donatedetailid { get; set; }
+        public float payment { get; set; }
+        public int postid { get; set; }
+        public int donateid { get; set; }
+        public string userpost { get; set; }
+        public DateTime createdate { get; set; }
+        public string uid { get; set; }
+    }
 }

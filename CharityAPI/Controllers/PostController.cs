@@ -111,6 +111,22 @@ namespace CharityAPI.Controllers
             postAPIRepository.CreatePostMinhChung(post);
             return Ok(post);
         }
+        [Route("CreateDonate")]
+        [HttpPost]
+        public ActionResult CreateDonate(Donate donate)
+        {
+            PostAPIRepository postAPIRepository = new PostAPIRepository();
+            postAPIRepository.CreateDonate(donate);
+            return Ok(donate);
+        }
+        [Route("CreateDonateDetail")]
+        [HttpPost]
+        public ActionResult CreateDonateDetail(DonateDetail donate)
+        {
+            PostAPIRepository postAPIRepository = new PostAPIRepository();
+            postAPIRepository.CreateDonateDetail(donate);
+            return Ok(donate);
+        }
 
         [Route("AddComment")]
         [HttpPost]

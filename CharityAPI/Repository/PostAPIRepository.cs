@@ -187,6 +187,30 @@ namespace CharityAPI.Repository
                 throw new Exception("Lỗi tạo bài viết!.  [ PostAPIRepository > CreatePostMinhChung Error: " + objEx.Message + " ]");
             }
         }
+        public void CreateDonate(Donate donate)
+        {
+            try
+            {
+                PostDAO postDAO = new PostDAO();
+                postDAO.CreateDonate(donate);
+            }
+            catch (Exception objEx)
+            {
+                throw new Exception("Lỗi tạo bài viết!.  [ PostAPIRepository > CreateDonate Error: " + objEx.Message + " ]");
+            }
+        }
+        public void CreateDonateDetail(DonateDetail donate)
+        {
+            try
+            {
+                PostDAO postDAO = new PostDAO();
+                postDAO.CreateDonateDetail(donate);
+            }
+            catch (Exception objEx)
+            {
+                throw new Exception("Lỗi tạo bài viết!.  [ PostAPIRepository > CreateDonateDetail Error: " + objEx.Message + " ]");
+            }
+        }
         public void AddComment(Comment_Post comment)
         {
             try

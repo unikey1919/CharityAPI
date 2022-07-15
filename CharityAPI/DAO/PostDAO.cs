@@ -216,6 +216,51 @@ namespace CharityAPI.DAO
                 throw new Exception("PostDAO > CreatePost: " + ex);
             }
         }
+        public void CreateDonate(Donate donate)
+        {
+            try
+            {
+                string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
+                MySqlConnection mySql = new MySqlConnection(conn);
+                MySqlCommand cmd = new MySqlCommand("DONATE_INS");
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@i_topdonateuid", donate.topdonateuid);
+                cmd.Parameters.AddWithValue("@i_postid", donate.postid);
+                cmd.Parameters.AddWithValue("@i_status", donate.status);
+                cmd.Parameters.AddWithValue("@i_payment", donate.payment);
+                cmd.Connection = mySql;
+                mySql.Open();
+                cmd.ExecuteNonQuery();
+                mySql.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("PostDAO > CreateDonate: " + ex);
+            }
+        }
+        public void CreateDonateDetail(DonateDetail donate)
+        {
+            try
+            {
+                string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
+                MySqlConnection mySql = new MySqlConnection(conn);
+                MySqlCommand cmd = new MySqlCommand("DONATEDETAIL_INS");
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@i_uid", donate.uid);
+                cmd.Parameters.AddWithValue("@i_postid", donate.postid);
+                cmd.Parameters.AddWithValue("@i_userpost", donate.userpost);
+                cmd.Parameters.AddWithValue("@i_payment", donate.payment);
+                cmd.Parameters.AddWithValue("@i_donateid", donate.donateid);
+                cmd.Connection = mySql;
+                mySql.Open();
+                cmd.ExecuteNonQuery();
+                mySql.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("PostDAO > CreateDonateDetail: " + ex);
+            }
+        }
         public void AddComment(Comment_Post comment)
         {
             try
