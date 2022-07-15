@@ -199,6 +199,18 @@ namespace CharityAPI.Repository
                 throw new Exception("Lỗi tạo bài viết!.  [ PostAPIRepository > CreateDonate Error: " + objEx.Message + " ]");
             }
         }
+        public void UpdateDonate(Donate donate)
+        {
+            try
+            {
+                PostDAO postDAO = new PostDAO();
+                postDAO.UpdateDonate(donate);
+            }
+            catch (Exception objEx)
+            {
+                throw new Exception("Lỗi tạo bài viết!.  [ PostAPIRepository > CreateDonate Error: " + objEx.Message + " ]");
+            }
+        }
         public void CreateDonateDetail(DonateDetail donate)
         {
             try

@@ -119,6 +119,14 @@ namespace CharityAPI.Controllers
             postAPIRepository.CreateDonate(donate);
             return Ok(donate);
         }
+        [Route("UpdateDonate")]
+        [HttpPost]
+        public ActionResult UpdateDonate(Donate donate)
+        {
+            PostAPIRepository postAPIRepository = new PostAPIRepository();
+            postAPIRepository.UpdateDonate(donate);
+            return Ok(donate);
+        }
         [Route("CreateDonateDetail")]
         [HttpPost]
         public ActionResult CreateDonateDetail(DonateDetail donate)

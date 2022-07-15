@@ -224,10 +224,32 @@ namespace CharityAPI.DAO
                 MySqlConnection mySql = new MySqlConnection(conn);
                 MySqlCommand cmd = new MySqlCommand("DONATE_INS");
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@i_topdonateuid", donate.topdonateuid);
+                cmd.Parameters.AddWithValue("@i_topdonateuid", "Admin");
                 cmd.Parameters.AddWithValue("@i_postid", donate.postid);
+                cmd.Parameters.AddWithValue("@i_status", 1);
+                cmd.Parameters.AddWithValue("@i_payment", 0);
+                cmd.Connection = mySql;
+                mySql.Open();
+                cmd.ExecuteNonQuery();
+                mySql.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("PostDAO > CreateDonate: " + ex);
+            }
+        }
+        public void UpdateDonate(Donate donate)
+        {
+            try
+            {
+                string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
+                MySqlConnection mySql = new MySqlConnection(conn);
+                MySqlCommand cmd = new MySqlCommand("DONATE_UPD");
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@i_topdonateuid", donate.topdonateuid);
                 cmd.Parameters.AddWithValue("@i_status", donate.status);
                 cmd.Parameters.AddWithValue("@i_payment", donate.payment);
+                cmd.Parameters.AddWithValue("@i_donateid", donate.donateid);
                 cmd.Connection = mySql;
                 mySql.Open();
                 cmd.ExecuteNonQuery();
