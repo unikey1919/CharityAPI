@@ -27,6 +27,7 @@ namespace CharityAPI.Models
         public string uidmc { get; set; }
         public string postcontentmc { get; set; }
         public string picturemc { get; set; }
+        public int statusdonate { get; set; }
 
     }
     public class UserPostInfo

@@ -249,7 +249,7 @@ namespace CharityAPI.DAO
                 cmd.Parameters.AddWithValue("@i_topdonateuid", donate.topdonateuid);
                 cmd.Parameters.AddWithValue("@i_status", donate.status);
                 cmd.Parameters.AddWithValue("@i_payment", donate.payment);
-                cmd.Parameters.AddWithValue("@i_donateid", donate.donateid);
+                cmd.Parameters.AddWithValue("@i_donateid", donate.postid);
                 cmd.Connection = mySql;
                 mySql.Open();
                 cmd.ExecuteNonQuery();
@@ -272,7 +272,6 @@ namespace CharityAPI.DAO
                 cmd.Parameters.AddWithValue("@i_postid", donate.postid);
                 cmd.Parameters.AddWithValue("@i_userpost", donate.userpost);
                 cmd.Parameters.AddWithValue("@i_payment", donate.payment);
-                cmd.Parameters.AddWithValue("@i_donateid", donate.donateid);
                 cmd.Connection = mySql;
                 mySql.Open();
                 cmd.ExecuteNonQuery();
