@@ -28,6 +28,7 @@ namespace CharityAPI.Models
         public string postcontentmc { get; set; }
         public string picturemc { get; set; }
         public int statusdonate { get; set; }
+        public int flag { get; set; }
 
     }
     public class UserPostInfo
@@ -92,6 +93,7 @@ namespace CharityAPI.Models
         public int postid { get; set; }
         public int donateid { get; set; }
         public string userpost { get; set; }
+        public string fullname { get; set; }
         public DateTime createdate { get; set; }
         public string uid { get; set; }
     }

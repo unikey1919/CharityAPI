@@ -26,6 +26,38 @@ namespace CharityAPI.DAO
             mySql.Close();
             return dt;
         }
+        public DataTable GetListDonate(Donate donate)
+        {
+            DataTable dt = new DataTable();
+            string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
+            MySqlConnection mySql = new MySqlConnection(conn);
+            MySqlCommand cmd = new MySqlCommand("DONATE_INF");
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("p_postid", donate.postid);
+            cmd.Parameters.AddWithValue("p_createdate", donate.createdate);
+            cmd.Parameters.AddWithValue("p_status", donate.status);
+            cmd.Connection = mySql;
+            mySql.Open();
+            MySqlDataAdapter dr = new MySqlDataAdapter(cmd);
+            dr.Fill(dt);
+            mySql.Close();
+            return dt;
+        }
+        public DataTable GetListDonateDetail(DonateDetail donate)
+        {
+            DataTable dt = new DataTable();
+            string conn = ConfigurationManager.ConnectionStrings["ConnectionStringToCharity"].ConnectionString;
+            MySqlConnection mySql = new MySqlConnection(conn);
+            MySqlCommand cmd = new MySqlCommand("DONATEDE_INF");
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("p_postid", donate.postid);
+            cmd.Connection = mySql;
+            mySql.Open();
+            MySqlDataAdapter dr = new MySqlDataAdapter(cmd);
+            dr.Fill(dt);
+            mySql.Close();
+            return dt;
+        }
         public DataTable GetPostFromUserMinhChung(UserPostInfo user)
         {
             DataTable dt = new DataTable();

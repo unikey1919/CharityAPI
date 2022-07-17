@@ -24,6 +24,36 @@ namespace CharityAPI.Repository
             
             return listPost;
         }
+        public List<Donate> GetListDonate(Donate donate)
+        {
+            List<Donate> listDonate = new List<Donate>();
+            try
+            {
+                PostDAO postDAO = new PostDAO();
+                listDonate = postDAO.GetListDonate(donate).ToList<Donate>();
+            }
+            catch (Exception objEx)
+            {
+                throw new Exception("Lỗi lấy danh sách bài viết quyên góp!.  [ PostAPIRepository > GetListDonate Error: " + objEx.Message + " ]");
+            }
+
+            return listDonate;
+        }
+        public List<DonateDetail> GetListDonateDetail(DonateDetail donate)
+        {
+            List<DonateDetail> listDonate = new List<DonateDetail>();
+            try
+            {
+                PostDAO postDAO = new PostDAO();
+                listDonate = postDAO.GetListDonateDetail(donate).ToList<DonateDetail>();
+            }
+            catch (Exception objEx)
+            {
+                throw new Exception("Lỗi lấy danh sách bài viết quyên góp!.  [ PostAPIRepository > GetListDonate Error: " + objEx.Message + " ]");
+            }
+
+            return listDonate;
+        }
         public List<Post> GetListPostMinhChung(UserPostInfo user)
         {
             List<Post> listPost = new List<Post>();

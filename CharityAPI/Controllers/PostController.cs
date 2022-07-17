@@ -20,6 +20,22 @@ namespace CharityAPI.Controllers
             List<Post> listPost = postAPIRepository.GetListPost(user).ToList(); 
             return listPost;
         }
+        [Route("GetDonate")]
+        [HttpPost]
+        public IEnumerable<Donate> GetDonate(Donate donate)
+        {
+            PostAPIRepository postAPIRepository = new PostAPIRepository();
+            List<Donate> listDonate = postAPIRepository.GetListDonate(donate).ToList();
+            return listDonate;
+        }
+        [Route("GetDonateDetail")]
+        [HttpPost]
+        public IEnumerable<DonateDetail> GetDonateDetail(DonateDetail donate)
+        {
+            PostAPIRepository postAPIRepository = new PostAPIRepository();
+            List<DonateDetail> listDonate = postAPIRepository.GetListDonateDetail(donate).ToList();
+            return listDonate;
+        }
         [Route("GetPostMinhChung")]
         [HttpPost]
         public IEnumerable<Post> GetPostMinhChung(UserPostInfo user)
